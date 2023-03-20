@@ -5,13 +5,13 @@ app = Flask(__name__)
 users = [
     {
         "id": 1,
-        "name": "João da Silva",
+        "nome": "João da Silva",
         "cargo": "Vendedor",
         "senha": "123456"
     },
     {
         "id": 2,
-        "name": "Maria Souza",
+        "nome": "Maria Souza",
         "cargo": "Marketing",
         "senha": "abcdef"
     }
