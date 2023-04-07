@@ -58,7 +58,6 @@ def criar():
     data = request.json
     mycursor = mydb.cursor()
     sql = f"insert into produto(nomeProduto, id, preco, qtd) values  ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']});"
-    #sql = f"insert into produto(nomeProduto, id, preco, qtd) values  ('{a}',{b},{c},{d});"
     mycursor.execute(sql)
     mydb.commit()
     return make_response(
@@ -73,42 +72,56 @@ def retirar():
     data = request.json
     qtd = data['qtd']
     id = data['id']
-    prod=encontra_produto(id)
-    if( prod == False):
-        return jsonify({'message': 'Produto não encontrado.'}), 404
-    else:
-        if(prod.preco < qtd):
+    mycursor = mydb.cursor()
+    sql = f"SELECT qtd FROM produtos WHERE id =('{data['id']}');"
+    mycursor.execute(sql)
+    qtdAtual = mycursor.fetchall()
+
+    if(qtdAtual < qtd):
             return jsonify({'message': 'Quantidade não suficiente.'}), 404
-        else:
-            prod = prod.preco - qtd
+    else:
+            qtdfinal=qtdAtual-qtd
+            mycursor1 = mydb.cursor()
+            sql1 = f"UPDATE produtos SET qtd = ('{qtdfinal}') WHERE id = ('{data['id']}');"
+            mycursor1.execute(sql1)
+            mydb.commit()
             return make_response
 
 
 # Atualizar um produto existente
-#@app.route('/produtos/<int:idproduto>', methods=['PUT'])
 def atualizar(id):
     product = encontra_produto(id)
     if product:
         data = request.json
         nomeProduto = data['nome']
-        pid = data['id']
+        id = data['id']
         preco = data['preco']
         qtdI=data['qtdI']
-        product(nomeProduto,pid,preco,qtdI)
+        mycursor1 = mydb.cursor()
+        sql1 = f"UPDATE produtos SET nome,preco,id,qtdI = ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']})  WHERE id = ('{data['id']}');"
+        mycursor1.execute(sql1)
+        mydb.commit()
+        
         return make_response
     else:
         return jsonify({'message': 'Pedido não encontrado.'}), 404
 
 
 # Deletar um pedido existente
-#@app.route('/produtos/<int:idproduto>', methods=['DELETE'])
 def deletar(idprod):
-    product = encontra_produto(idprod)
-    if product:
-        produtos.remove(product)
-        return jsonify({'message': 'Produto deletado com sucesso!'})
-    else:
-        return jsonify({'message': 'Produto não encontrado.'}), 404
+  
+   mycursor = mydb.cursor()
+   mycursor.execute('DELETE FROM clientes WHERE id = ('{data['id']}');')
+   meus_produtos = mycursor.fetchall()
+   
+   return make_response(
+       jsonify(
+           mensagem='Lista de produtos',
+           dados=meus_produtos
+       )
+   )
+
+  
 
 
 
