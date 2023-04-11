@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\g\Documents\GitHub\QuickStore\venv"
+VIRTUAL_ENV="C:\Users\lucas\Desktop\ufrpe\arq\QuickStore\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
