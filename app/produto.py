@@ -51,7 +51,7 @@ def retirar():
     qtd = data['qtd']
     id = data['id']
     mycursor = mydb.cursor()
-    sql = f"SELECT qtd FROM produtos WHERE id =('{data['id']}');"
+    sql = f"SELECT qtd FROM produto WHERE id =('{data['id']}');"
     mycursor.execute(sql)
     qtdAtual = mycursor.fetchall()
 
@@ -60,7 +60,7 @@ def retirar():
     else:
             qtdfinal=qtdAtual-qtd
             mycursor1 = mydb.cursor()
-            sql1 = f"UPDATE produtos SET qtd = ('{qtdfinal}') WHERE id = ('{data['id']}');"
+            sql1 = f"UPDATE produto SET qtd = ('{qtdfinal}') WHERE id = ('{data['id']}');"
             mycursor1.execute(sql1)
             mydb.commit()
             return make_response
@@ -74,7 +74,7 @@ def atualizar():
     preco = data['preco']
     qtd=data['qtd']
     mycursor1 = mydb.cursor()
-    sql1 = f"UPDATE produtos SET nome, preco, id, qtdI = ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']})  WHERE id = ('{data['id']}');"
+    sql1 = f"UPDATE produto SET nome, preco, id, qtdI = ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']})  WHERE id = ('{data['id']}');"
     mycursor1.execute(sql1)
     mydb.commit()    
     return make_response
@@ -85,7 +85,7 @@ def deletar():
     data = request.json
     id = data['id']
     mycursor = mydb.cursor()
-    sql = f"DELETE FROM produtos WHERE id = ('{data['id']}')"
+    sql = f"DELETE FROM produto WHERE id = ('{data['id']}')"
     mycursor.execute(sql)
     mydb.commit()   
     return make_response()
