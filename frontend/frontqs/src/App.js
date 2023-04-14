@@ -1,33 +1,22 @@
 import './App.css';
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import TelaInicial from './telas/TelaInicial.js';
+import TelaProduto from './telas/TelaProduto.js';
+import { Link } from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("http://localhost:5000/produt");
-      setData(response.data);
-    };
-
-    fetchData();
-  }, []);
-
   return (
-    <div>
-      <header>QuickStore</header>
-      <h1>Produtos</h1>
-      <div className='Produtos'>
-        {data && data.dados.map(produto =>
-          <div className='produto' key={produto.slug}>
-            <img src={produto.imagem_url} alt={produto.nome} />
-            <p>{produto.nome}</p>
-            <p>{produto.preco}</p>
-          </div>
-        )}
+    <BrowserRouter>
+      <div>
+        <header><div className='Teste'><Link to="/">QuickStore</Link></div></header>
+        <main>
+          <Routes>
+            <Route path="/" element={<TelaInicial />} />
+            <Route path="/produto/:nome" element={<TelaProduto />} />
+          </Routes>
+        </main>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
