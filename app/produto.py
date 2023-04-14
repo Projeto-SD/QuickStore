@@ -40,6 +40,31 @@ def get_produtos():
        )
    )
 
+def get_produto():
+   data = request.json
+   id = data['id']
+   mycursor = mydb.cursor()
+   sql = f"SELECT * FROM produto WHERE id =('{data['id']}');"
+   mycursor.execute(sql)
+   meu_produto = mycursor.fetchall()
+   print(meu_produto)
+   
+   produtos = []
+   for produto in meu_produto:
+       produtos.append({
+           'nome': produto[0],
+           'id': produto[1],
+           'preco': produto[2],
+           'qtd': produto[3],
+           'imagem_url': produto[4]
+           })
+   
+   return make_response(
+       jsonify(
+           mensagem='Produto',
+           dados=produto
+       )
+   )
 
 # Criar um novo produto POST
 def criar():

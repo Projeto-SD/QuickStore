@@ -1,19 +1,8 @@
-header {
-  color: white;
-  background-color: darkgrey;
-  height: 70px;
-  font-weight: bold; 
+.site-container{
+  min-height: 100vh;
 }
-
-header link {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-
 main{
-  padding: 1rem;
+  flex: 1;
 }
  
 .produtos{ 
