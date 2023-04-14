@@ -1,10 +1,10 @@
 from flask import Flask
-import produto
-from flask import request,jsonify
-#from flask_cors import CORS
+import produto, os
+from flask_cors import CORS
+
 
 app = Flask(__name__)
-#CORS(app)
+CORS(app)
 
 
 @app.route('/')

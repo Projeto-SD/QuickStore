@@ -18,16 +18,25 @@ class Produto:
         self.quantidade = quantidade
 
 def get_produtos():
-
    mycursor = mydb.cursor()
    mycursor.execute('SELECT * FROM Produto')
    meus_produtos = mycursor.fetchall()
    print(meus_produtos)
    
+   produtos = []
+   for produto in meus_produtos:
+       produtos.append({
+           'nome': produto[0],
+           'id': produto[1],
+           'preco': produto[2],
+           'qtd': produto[3],
+           'imagem_url': produto[4]
+           })
+   
    return make_response(
        jsonify(
            mensagem='Lista de produtos',
-           dados=meus_produtos
+           dados=produtos
        )
    )
 
@@ -36,7 +45,8 @@ def get_produtos():
 def criar():
     data = request.json
     mycursor = mydb.cursor()
-    sql = f"insert into produto(nomeProduto, id, preco, qtd) values  ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']});"
+    sql = f"insert into produto(nomeProduto, id, preco, qtd, imagem) values  ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']}, '{data['imagem_url']}');"
+    print(sql)
     mycursor.execute(sql)
     mydb.commit()
     return make_response(
@@ -69,15 +79,19 @@ def retirar():
 # Atualizar um produto existente POST
 def atualizar():
     data = request.json
-    nomeProduto = data['nome']
+    nome = data['nome']
     id = data['id']
     preco = data['preco']
     qtd=data['qtd']
+    imagem=data['imagem_url']
     mycursor1 = mydb.cursor()
-    sql1 = f"UPDATE produto SET nome, preco, id, qtdI = ('{data['nome']}',{data['id']},{data['preco']},{data['qtd']})  WHERE id = ('{data['id']}');"
+    sql1 = f"UPDATE produto SET nomeProduto = '{data['nome']}', preco= {data['preco']}, qtd = {data['qtd']}, imagem = '{data['imagem_url']}' WHERE id = {data['id']};"
+    print(sql1)
     mycursor1.execute(sql1)
     mydb.commit()    
-    return make_response
+    return make_response(jsonify(
+           mensagem='Feito com sucesso',
+       ))
 
 
 # Deletar um pedido existente POST
@@ -88,4 +102,8 @@ def deletar():
     sql = f"DELETE FROM produto WHERE id = ('{data['id']}')"
     mycursor.execute(sql)
     mydb.commit()   
-    return make_response()
+    return make_response(
+       jsonify(
+           mensagem='Feito com sucesso',
+       )
+   )

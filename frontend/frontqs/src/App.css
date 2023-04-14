@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+header {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+ 
+.produtos{ 
+  display: flex;
+}
+
+.produto{
+  border: 1px gray solid;
+}
+
+.produto img{
+  width: 100%;
+}
