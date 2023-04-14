@@ -1,3 +1,4 @@
+from flask import Flask
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -51,4 +52,3 @@ def excluir_cliente(email):
     return jsonify({'message': 'Cliente não encontrado.'})
 
 if __name__ == '__main__':
-    app.run()
