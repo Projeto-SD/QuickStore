@@ -1,10 +1,10 @@
 from flask import Flask
-import produto
-from flask import request,jsonify
-#from flask_cors import CORS
+import produto, os
+from flask_cors import CORS
+
 
 app = Flask(__name__)
-#CORS(app)
+CORS(app)
 
 
 @app.route('/')
@@ -33,6 +33,11 @@ def produtCriar():
 @app.route('/produt', methods=['GET'])
 def produtget():
     return produto.get_produtos()
+
+
+@app.route('/produto', methods=['POST'])
+def produtoGet():
+    return produto.get_produto()
  
 
 if __name__ == '__main__':

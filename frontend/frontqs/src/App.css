@@ -1,0 +1,24 @@
+.site-container{
+  min-height: 100vh;
+}
+main{
+  flex: 1;
+}
+ 
+.produtos{ 
+  display: flex;
+  justify-content: center;
+}
+
+.produto{
+  border: 1px gray solid;
+  margin: 1rem;
+}
+
+.produto img{
+  width: 100%;
+}
+
+.prod-info{
+  padding: 1rem;
+}
