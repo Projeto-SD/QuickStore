@@ -52,3 +52,4 @@ def excluir_cliente(email):
     return jsonify({'message': 'Cliente não encontrado.'})
 
 if __name__ == '__main__':
+    app.run()
